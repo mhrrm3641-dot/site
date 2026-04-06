@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>MHRRM KIDS | Eğlence Dünyası</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* GELİŞMİŞ TASARIM DEĞİŞKENLERİ (CSS VARIABLES)
+        */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --dino-green: #4CAF50;
+            --race-red: #FF5757;
+            --space-purple: #8C52FF;
+            --memory-blue: #03A9F4;
+            --paint-yellow: #FFDE59;
+            --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --card-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* TEMEL SAYFA AYARLARI */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at center, #252525 0%, #121212 100%);
+            font-family: 'Fredoka One', cursive;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* BAŞLIK VE ÜST BİLGİ */
+        header {
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+            background: linear-gradient(to bottom, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        /* OYUN IZGARASI (GRID SYSTEM) */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        /* KART TASARIMI */
+        .game-card {
+            background: var(--card-bg);
+            border: 6px solid;
+            border-radius: 30px;
+            padding: 25px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--soft-shadow);
+            transition: var(--card-transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Kart Üzerine Gelindiğinde (Desktop) veya Dokunulduğunda (Mobil) */
+        .game-card:hover, .game-card:active {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .card-icon {
+            transform: scale(1.2) bounce;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        /* BUTON TASARIMI */
+        .play-btn {
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 0 5px 0 #cccccc;
+            transition: all 0.1s ease;
+            cursor: pointer;
+        }
+
+        .play-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #cccccc;
+        }
+
+        /* ÖZEL DURUM: BOYAMA KİTABI GENİŞLİĞİ */
+        .full-width {
+            grid-column: span 2;
+            margin-top: 10px;
+            flex-direction: row;
+            justify-content: space-around;
+            padding: 20px 40px;
+        }
+
+        /* ANİMASYON TANIMLARI */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* MOBİL UYUMLULUK AYARLARI */
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .game-grid { gap: 15px; }
+            .card-icon { font-size: 3rem; }
+            h2 { font-size: 1.2rem; }
+            .full-width { flex-direction: column; gap: 10px; }
+        }
+
+        /* ALT BİLGİ (FOOTER) */
+        footer {
+            margin-top: 40px;
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="mainTitle">MHRRM KIDS</h1>
+        <p class="subtitle">EĞLENCE VE MACERA MERKEZİ</p>
+    </header>
+
+    <main class="game-grid">
+        
+        <section class="game-card" style="border-color: var(--dino-green);">
+            <div class="card-icon">🦖</div>
+            <h2 style="color: var(--dino-green);">DİNO</h2>
+            <a href="dino.html" class="play-btn">Oyna!</a>
+        </section>
+
+        <section class="game-card" style="border-color: var(--race-red);">
+            <div class="card-icon">🏎️</div>
+            <h2 style="color: var(--race-red);">YARIŞ</h2>
+            <a href="yaris.html" class="play-btn">Oyna!</a>
+        </section>
+
+        <section class="game-card" style="border-color: var(--space-purple);">
+            <div class="card-icon">🚀</div>
+            <h2 style="color: var(--space-purple);">UZAY</h2>
+            <a href="uzay.html" class="play-btn">Oyna!</a>
+        </section>
+
+        <section class="game-card" style="border-color: var(--memory-blue);">
+            <div class="card-icon">🧠</div>
+            <h2 style="color: var(--memory-blue);">HAFIZA</h2>
+            <a href="hafiza.html" class="play-btn">Oyna!</a>
+        </section>
+        
+        <section class="game-card full-width" style="border-color: var(--paint-yellow);">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="card-icon">🎨</div>
+                <h2 style="color: var(--paint-yellow);">BOYAMA KİTABI</h2>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <a href="boyama.html" class="play-btn" style="background-color: var(--paint-yellow);">Hadi Boyayalım!</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MHRRM GÜRLÜYER | Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        /**
+         * Sayfa yüklendiğinde konsola bir karşılama mesajı yazdırır.
+         * Ayrıca ileride eklenebilecek kullanıcı skorları veya 
+         * tarayıcı uyumluluk kontrolleri için bir temel oluşturur.
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("MHRRM KIDS: Portal Başarıyla Yüklendi.");
+            
+            // Başlık için küçük bir interaktif efekt
+            const title = document.getElementById('mainTitle');
+            title.addEventListener('click', function() {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => { this.style.transform = 'scale(1)'; }, 200);
+            });
+        });
+    </script>
+
+</body>
+</html>
